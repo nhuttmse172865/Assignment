@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+
+  discoveryservice:
+    build: 
+      context: .
+      dockerfile: DiscoveryService/Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices
+
+  carservice:
+    
+    build: 
+      context: .
+      dockerfile: CarService/Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      -  microservices
+    depends_on:
+      - discoveryservice
+  
+  customerservice:
+    build: 
+      context: .
+      dockerfile: CustomerService/Dockerfile
+    ports:
+      - "8082:8082"
+    networks:
+      - microservices
+    depends_on:
+      - discoveryservice
+  
+  rentingservice:
+    build: 
+      context: .
+      dockerfile: RentingService/Dockerfile
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices
+    depends_on:
+      - discoveryservice
+  
+  gatewayservice:
+    build: 
+      context: .
+      dockerfile: GatewayService/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices
+    depends_on:
+      - carservice
+      - customerservice
+      - rentingservice
+      - discoveryservice
+
+
+networks:
+  microservices:
+    driver: bridge
