@@ -7,7 +7,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients()
 @SpringBootApplication
-@EnableDiscoveryClient()
 public class RentingServiceApplication {
 
     public static void main(String[] args) {
