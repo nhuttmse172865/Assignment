@@ -59,7 +59,6 @@ services:
       - rentingservice
       - discoveryservice
 
-
 networks:
   microservices:
     driver: bridge
